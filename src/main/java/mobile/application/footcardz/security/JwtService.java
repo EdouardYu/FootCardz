@@ -24,6 +24,7 @@ import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 @Slf4j
@@ -37,36 +38,47 @@ public class JwtService {
     @Value("${encryption.key}")
     private String ENCRYPTION_KEY;
 
+    private final Map<Integer, Object> userLocks = new ConcurrentHashMap<>();
+
     public TokensDTO generate(String username) {
         User user = this.userService.loadUserByUsername(username);
+        synchronized (this.getUserLock(user.getId())) {
+            try {
+                this.jwtRepository.disableTokensByUser(user.getUsername());
 
-        this.jwtRepository.disableTokensByUser(user.getUsername());
+                long currentTime = System.currentTimeMillis();
+                long expirationTime = currentTime + 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 
-        long currentTime = System.currentTimeMillis();
-        long expirationTime = currentTime + 4 * 60 * 60 * 1000; // 4 hours in milliseconds
+                String bearer = this.generateJwt(user, currentTime, expirationTime);
 
-        String bearer = this.generateJwt(user, currentTime, expirationTime);
-
-        RefreshToken refreshToken = RefreshToken.builder()
-            .value(UUID.randomUUID().toString())
-            .expiredAt(Instant.ofEpochMilli(currentTime).plus(30, ChronoUnit.DAYS))
-            .build();
+                RefreshToken refreshToken = RefreshToken.builder()
+                    .value(UUID.randomUUID().toString())
+                    .expiredAt(Instant.ofEpochMilli(currentTime).plus(30, ChronoUnit.DAYS))
+                    .build();
 
 
-        Jwt jwt = Jwt.builder()
-            .value(bearer)
-            .expiredAt(Instant.ofEpochMilli(expirationTime))
-            .enabled(true)
-            .refreshToken(refreshToken)
-            .user(user)
-            .build();
+                Jwt jwt = Jwt.builder()
+                    .value(bearer)
+                    .expiredAt(Instant.ofEpochMilli(expirationTime))
+                    .enabled(true)
+                    .refreshToken(refreshToken)
+                    .user(user)
+                    .build();
 
-        this.jwtRepository.save(jwt);
+                this.jwtRepository.save(jwt);
 
-        return TokensDTO.builder()
-            .bearer(bearer)
-            .refresh(refreshToken.getValue())
-            .build();
+                return TokensDTO.builder()
+                    .bearer(bearer)
+                    .refresh(refreshToken.getValue())
+                    .build();
+            } finally {
+                this.userLocks.remove(user.getId());
+            }
+        }
+    }
+
+    private Object getUserLock(Integer userId) {
+        return this.userLocks.computeIfAbsent(userId, key -> new Object());
     }
 
     private String generateJwt(User user, long currentTime, long expirationTime) {

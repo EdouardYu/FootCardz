@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Transactional
@@ -24,16 +26,34 @@ public class ValidationService {
     private final int VALIDITY_DURATION = 10;
     private final String CHRONO_UNIT = "minutes";
 
+    private final Map<Integer, Object> userLocks = new ConcurrentHashMap<>();
+
     public void register(User user) {
-        this.validationRepository.disableValidationCodesByUser(user.getUsername());
-        Validation validation = generateValidationCode(user);
-        this.notificationService.sendActivationCodeEmail(validation, this.VALIDITY_DURATION, this.CHRONO_UNIT);
+        synchronized (this.getUserLock(user.getId())) {
+            try {
+                this.validationRepository.disableValidationCodesByUser(user.getUsername());
+                Validation validation = generateValidationCode(user);
+                this.notificationService.sendActivationCodeEmail(validation, this.VALIDITY_DURATION, this.CHRONO_UNIT);
+            } finally {
+                this.userLocks.remove(user.getId());
+            }
+        }
     }
 
     public void resetPassword(User user) {
-        this.validationRepository.disableValidationCodesByUser(user.getUsername());
-        Validation validation = generateValidationCode(user);
-        this.notificationService.sendPasswordResetEmail(validation, this.VALIDITY_DURATION, this.CHRONO_UNIT);
+        synchronized (this.getUserLock(user.getId())) {
+            try {
+                this.validationRepository.disableValidationCodesByUser(user.getUsername());
+                Validation validation = generateValidationCode(user);
+                this.notificationService.sendPasswordResetEmail(validation, this.VALIDITY_DURATION, this.CHRONO_UNIT);
+            } finally {
+                this.userLocks.remove(user.getId());
+            }
+        }
+    }
+
+    private Object getUserLock(Integer userId) {
+        return this.userLocks.computeIfAbsent(userId, key -> new Object());
     }
 
     private Validation generateValidationCode(User user) {
