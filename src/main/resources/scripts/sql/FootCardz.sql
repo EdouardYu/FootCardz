@@ -57,6 +57,9 @@ CREATE TABLE IF NOT EXISTS player (
     position VARCHAR NOT NULL,
     nationality_id INTEGER NOT NULL,
     team_id INTEGER NOT NULL,
+    CONSTRAINT valid_position CHECK (position IN (
+        'ST', 'RW', 'LW', 'CAM', 'CM', 'CDM', 'RM', 'LM', 'CB', 'RB', 'LB', 'GK'
+    )),
     CONSTRAINT player_nationality_fk FOREIGN KEY (nationality_id) REFERENCES nationality(id),
     CONSTRAINT player_team_fk FOREIGN KEY (team_id) REFERENCES team(id)
 );
