@@ -39,6 +39,14 @@ public class ApplicationSecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, "/password/new").permitAll()
                 .requestMatchers(HttpMethod.GET, "/images/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/players").permitAll()
+                .requestMatchers(HttpMethod.GET, "/players/search").permitAll()
+                .requestMatchers(HttpMethod.GET, "/players/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/leagues").permitAll()
+                .requestMatchers(HttpMethod.GET, "/leagues/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/teams").permitAll()
+                .requestMatchers(HttpMethod.GET, "/teams/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/nationalities").permitAll()
+                .requestMatchers(HttpMethod.GET, "/nationalities/{id}").permitAll()
                 .anyRequest().authenticated()
             ).exceptionHandling(exceptionHandling -> exceptionHandling
                     .authenticationEntryPoint((request, response, authException) -> {
