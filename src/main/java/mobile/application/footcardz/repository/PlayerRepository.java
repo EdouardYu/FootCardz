@@ -20,6 +20,6 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
         "WHERE (LOWER(P.name) LIKE LOWER(CONCAT(:term, '%')) " +
         "OR LOWER(P.team.name) LIKE LOWER(CONCAT(:term, '%')) " +
         "OR LOWER(P.team.league.name) LIKE LOWER(CONCAT(:term, '%')) " +
-        "OR LOWER(P.nationality.name) LIKE LOWER(CONCAT(:term, '%'))) ")
+        "OR LOWER(P.nationality.name) LIKE LOWER(CONCAT(:term, '%')))")
     Page<Player> searchPlayers(String term, Pageable pageable);
 }

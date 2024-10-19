@@ -40,4 +40,15 @@ public class UserPlayerCollectionService {
         return this.userPlayerCollectionRepository.findAllByUser(userId, pageable)
             .map(userPlayer -> PlayerMapper.toPlayerDTO(userPlayer.getPlayer()));
     }
+
+    public Page<PlayerDTO> searchPlayersByUser(Integer userId, String term, Pageable pageable) {
+        String trimmedTerm = term.trim();
+
+        if (trimmedTerm.length() < 2) {
+            throw new IllegalArgumentException("Search term must be at least 2 characters long");
+        }
+
+        return this.userPlayerCollectionRepository.searchPlayersByUser(userId, trimmedTerm, pageable)
+            .map(userPlayer -> PlayerMapper.toPlayerDTO(userPlayer.getPlayer()));
+    }
 }

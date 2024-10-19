@@ -105,5 +105,11 @@ public class UserController {
     public Page<PlayerDTO> getUserPlayers(@PathVariable Integer id, Pageable pageable) {
         return this.userService.getUserPlayers(id, pageable);
     }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @GetMapping(path = "users/{id}/players/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Page<PlayerDTO> searchUserPlayers(@PathVariable Integer id, String term, Pageable pageable) {
+        return this.userService.searchUserPlayers(id, term, pageable);
+    }
 }
 

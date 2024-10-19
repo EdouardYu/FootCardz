@@ -1,5 +1,6 @@
 package mobile.application.footcardz.service;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mobile.application.footcardz.dto.mapper.PlayerMapper;
 import mobile.application.footcardz.dto.player.PlayerDTO;
@@ -34,10 +35,15 @@ public class PlayerService {
     private final TeamService teamService;
     private final NationalityService nationalityService;
     private final StorageService storageService;
+    private final String FOLDER = "players";
+    private final String FILE_FORMAT = ".png";
+    private final int EXPECTED_WIDTH = 512;
+    private final int EXPECTED_HEIGHT = 512;
+
 
     public Player getRandomPlayerNotOwnedByUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User dbUser = this.userService.loadUserByUsername(user.getUsername());
+        User dbUser = this.userService.findById(user.getId());
         Integer userId = dbUser.getId();
 
         Instant noon = ZonedDateTime.now(ZoneId.of("UTC"))
@@ -70,7 +76,7 @@ public class PlayerService {
     }
 
     public Page<PlayerDTO> getAllPlayers(Pageable pageable) {
-        return playerRepository.findAll(pageable)
+        return this.playerRepository.findAll(pageable)
             .map(PlayerMapper::toPlayerDTO);
     }
 
@@ -86,15 +92,12 @@ public class PlayerService {
     }
 
     public PlayerDetailsDTO getPlayer(Integer id) {
-        return PlayerMapper.toPlayerDetailsDTO(
-            playerRepository.findById(id)
-                .orElseThrow(() -> new PlayerException("Player not found"))
-        );
+        Player player = this.findById(id);
+        return PlayerMapper.toPlayerDetailsDTO(player);
     }
 
     public PlayerDetailsDTO modifyPlayer(Integer id, PlayerRequestDTO playerDTO, MultipartFile file) {
-        Player player = playerRepository.findById(id)
-            .orElseThrow(() -> new PlayerException("Player not found"));
+        Player player = this.findById(id);
 
         Team team = this.teamService.findById(playerDTO.getTeamId());
         Nationality nationality = this.nationalityService.findById(playerDTO.getNationalityId());
@@ -104,13 +107,51 @@ public class PlayerService {
         player.setTeam(team);
         player.setNationality(nationality);
 
+        player = this.playerRepository.save(player);
+
         if (file != null && !file.isEmpty()) {
-            String fileName = player.getId() + ".png";
-            this.storageService.storeImageWithSizeCheck(file, "players", fileName, 512, 512);
+            String fileName = player.getId() + this.FILE_FORMAT;
+            this.storageService.storeImageWithSizeCheck(file,
+                this.FOLDER, fileName, this.EXPECTED_WIDTH, this.EXPECTED_HEIGHT);
         }
 
-        player = playerRepository.save(player);
+        return PlayerMapper.toPlayerDetailsDTO(player);
+    }
+
+    public PlayerDetailsDTO addPlayer(@Valid PlayerRequestDTO playerDTO, MultipartFile file) {
+        if (file.isEmpty())
+            throw new IllegalArgumentException("File cannot be empty");
+
+        Team team = this.teamService.findById(playerDTO.getTeamId());
+        Nationality nationality = this.nationalityService.findById(playerDTO.getNationalityId());
+
+        Player player = Player.builder()
+            .name(playerDTO.getName())
+            .position(playerDTO.getPosition())
+            .team(team)
+            .nationality(nationality)
+            .build();
+
+        player = this.playerRepository.save(player);
+
+        String fileName = player.getId() + this.FILE_FORMAT;
+        this.storageService.storeImageWithSizeCheck(file,
+            this.FOLDER, fileName, this.EXPECTED_WIDTH, this.EXPECTED_HEIGHT);
 
         return PlayerMapper.toPlayerDetailsDTO(player);
+    }
+
+    public void deletePlayer(Integer id) {
+        Player player = this.findById(id);
+
+        String fileName = player.getId() + this.FILE_FORMAT;
+        this.storageService.deleteImage(this.FOLDER, fileName);
+
+        this.playerRepository.delete(player);
+    }
+
+    private Player findById(Integer id) {
+        return this.playerRepository.findById(id)
+            .orElseThrow(() -> new PlayerException("Player not found"));
     }
 }

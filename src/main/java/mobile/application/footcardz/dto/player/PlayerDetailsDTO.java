@@ -10,8 +10,8 @@ import mobile.application.footcardz.entity.enumeration.Position;
 public class PlayerDetailsDTO {
     private String name;
     private Position position;
-    @JsonProperty("player_image_url")
-    private String playerImageUrl;
+    @JsonProperty("image_url")
+    private String imageUrl;
     private String league;
     @JsonProperty("league_image_url")
     private String leagueImageUrl;

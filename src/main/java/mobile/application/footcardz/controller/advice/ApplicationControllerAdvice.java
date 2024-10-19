@@ -32,6 +32,7 @@ public class ApplicationControllerAdvice {
         BadPasswordException.class,
         PlayerException.class,
         TeamException.class,
+        LeagueException.class,
         NationalityException.class,
         IllegalArgumentException.class
     })

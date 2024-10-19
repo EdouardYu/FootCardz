@@ -52,4 +52,20 @@ public class PlayerController {
                                          @RequestPart(value = "file", required = false) MultipartFile file) {
         return this.playerService.modifyPlayer(id, playerDTO, file);
     }
+
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    @ResponseStatus(value = HttpStatus.OK)
+    @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PlayerDetailsDTO addPlayer(
+        @Valid @RequestPart("player") PlayerRequestDTO playerDTO,
+        @RequestPart("file") MultipartFile file) {
+       return this.playerService.addPlayer(playerDTO, file);
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
+    @ResponseStatus(value = HttpStatus.OK)
+    @DeleteMapping("{id}")
+    public void deletePlayer(@PathVariable Integer id) {
+        this.playerService.deletePlayer(id);
+    }
 }

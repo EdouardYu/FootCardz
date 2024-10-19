@@ -167,6 +167,10 @@ public class UserService implements UserDetailsService {
         return this.userPlayerCollectionService.findAllByUser(id, pageable);
     }
 
+    public Page<PlayerDTO> searchUserPlayers(Integer id, String term, Pageable pageable) {
+        return this.userPlayerCollectionService.searchPlayersByUser(id, term, pageable);
+    }
+
     private User hasPermission(Integer id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User dbUser = this.userRepository.findById(id)
@@ -181,6 +185,11 @@ public class UserService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String username) {
         return this.userRepository.findByUsernameOrEmail(username)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public User findById(Integer id) {
+        return this.userRepository.findById(id)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
