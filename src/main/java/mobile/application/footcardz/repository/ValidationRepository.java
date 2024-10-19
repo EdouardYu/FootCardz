@@ -1,6 +1,6 @@
 package mobile.application.footcardz.repository;
 
-import mobile.application.footcardz.entity.Validation;
+import mobile.application.footcardz.entity.user.Validation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

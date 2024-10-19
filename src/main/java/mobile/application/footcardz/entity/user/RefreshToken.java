@@ -1,4 +1,4 @@
-package mobile.application.footcardz.entity;
+package mobile.application.footcardz.entity.user;
 
 
 import jakarta.persistence.*;

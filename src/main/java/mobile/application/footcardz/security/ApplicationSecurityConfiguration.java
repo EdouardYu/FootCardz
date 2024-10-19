@@ -37,6 +37,8 @@ public class ApplicationSecurityConfiguration {
                 .requestMatchers(HttpMethod.POST, "/token/refresh").permitAll()
                 .requestMatchers(HttpMethod.POST, "/password/reset").permitAll()
                 .requestMatchers(HttpMethod.POST, "/password/new").permitAll()
+                .requestMatchers(HttpMethod.GET, "/images/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/players").permitAll()
                 .anyRequest().authenticated()
             ).exceptionHandling(exceptionHandling -> exceptionHandling
                     .authenticationEntryPoint((request, response, authException) -> {

@@ -1,6 +1,6 @@
 package mobile.application.footcardz.repository;
 
-import mobile.application.footcardz.entity.User;
+import mobile.application.footcardz.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

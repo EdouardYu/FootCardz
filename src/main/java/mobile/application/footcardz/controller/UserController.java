@@ -2,9 +2,12 @@ package mobile.application.footcardz.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import mobile.application.footcardz.dto.player.PlayerDTO;
 import mobile.application.footcardz.dto.user.*;
 import mobile.application.footcardz.security.JwtService;
 import mobile.application.footcardz.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -95,6 +98,12 @@ public class UserController {
     @PutMapping(path = "profiles/{id}/password", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void modifyPassword(@PathVariable Integer id, @Valid @RequestBody PasswordModificationDTO userDTO) {
         this.userService.modifyPassword(id, userDTO);
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @GetMapping(path = "users/{id}/players", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Page<PlayerDTO> getUserPlayers(@PathVariable Integer id, Pageable pageable) {
+        return this.userService.getUserPlayers(id, pageable);
     }
 }
 

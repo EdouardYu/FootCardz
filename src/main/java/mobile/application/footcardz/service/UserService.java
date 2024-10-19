@@ -2,12 +2,15 @@ package mobile.application.footcardz.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mobile.application.footcardz.dto.player.PlayerDTO;
 import mobile.application.footcardz.dto.user.*;
-import mobile.application.footcardz.entity.User;
-import mobile.application.footcardz.entity.Validation;
+import mobile.application.footcardz.entity.user.User;
+import mobile.application.footcardz.entity.user.Validation;
 import mobile.application.footcardz.entity.enumeration.Role;
 import mobile.application.footcardz.repository.UserRepository;
 import mobile.application.footcardz.service.exception.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,6 +30,7 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final ValidationService validationService;
+    private final UserPlayerCollectionService userPlayerCollectionService;
 
     public void signUp(RegistrationDTO userDTO) {
         if(this.userRepository.existsByUsernameAndEnabled(userDTO.getUsername(), true))
@@ -119,7 +123,7 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(user);
     }
 
-    public ProfileDTO getProfile(int id) {
+    public ProfileDTO getProfile(Integer id) {
         User profile = this.userRepository.findById(id)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -131,7 +135,7 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public ProfileDTO modifyProfile(int id, ProfileModificationDTO userDTO) {
+    public ProfileDTO modifyProfile(Integer id, ProfileModificationDTO userDTO) {
         User user = hasPermission(id);
 
         user.setUsername(userDTO.getUsername());
@@ -146,7 +150,7 @@ public class UserService implements UserDetailsService {
             .build();
     }
 
-    public void modifyPassword(int id, PasswordModificationDTO userDTO) {
+    public void modifyPassword(Integer id, PasswordModificationDTO userDTO) {
         User user = hasPermission(id);
 
         if (!passwordEncoder.matches(userDTO.getOldPassword(), user.getPassword())) {
@@ -159,7 +163,11 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(user);
     }
 
-    private User hasPermission(int id) {
+    public Page<PlayerDTO> getUserPlayers(Integer id, Pageable pageable) {
+        return this.userPlayerCollectionService.findAllByUser(id, pageable);
+    }
+
+    private User hasPermission(Integer id) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User dbUser = this.userRepository.findById(id)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));

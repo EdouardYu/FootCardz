@@ -1,7 +1,7 @@
 package mobile.application.footcardz.service;
 
 import lombok.AllArgsConstructor;
-import mobile.application.footcardz.entity.Validation;
+import mobile.application.footcardz.entity.user.Validation;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;

@@ -29,7 +29,11 @@ public class ApplicationControllerAdvice {
         UsernameNotFoundException.class,
         NotYetEnabledException.class,
         LockedException.class,
-        BadPasswordException.class
+        BadPasswordException.class,
+        PlayerException.class,
+        TeamException.class,
+        NationalityException.class,
+        IllegalArgumentException.class
     })
     public @ResponseBody ErrorEntity handleBadRequestException(RuntimeException e) {
         log.warn(String.valueOf(e));
@@ -67,8 +71,11 @@ public class ApplicationControllerAdvice {
     }
 
     @ResponseStatus(value = HttpStatus.CONFLICT)
-    @ExceptionHandler({AlreadyProcessedException.class})
-    public @ResponseBody ErrorEntity handleAlreadyProcessedException(AlreadyProcessedException e) {
+    @ExceptionHandler({
+        AlreadyProcessedException.class,
+        DailyPlayerAlreadyAssignedException.class
+    })
+    public @ResponseBody ErrorEntity handleAlreadyProcessedException(RuntimeException e) {
         log.warn(String.valueOf(e));
         return new ErrorEntity(HttpStatus.CONFLICT.value(), e.getMessage());
     }
