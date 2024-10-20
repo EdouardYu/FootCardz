@@ -1,6 +1,5 @@
 package mobile.application.footcardz.controller;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mobile.application.footcardz.dto.team.TeamDTO;
 import mobile.application.footcardz.dto.team.TeamRequestDTO;
@@ -22,8 +21,13 @@ public class TeamController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @ResponseStatus(value = HttpStatus.OK)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public TeamDTO addTeam(@Valid @RequestPart("team") TeamRequestDTO teamDTO,
-                             @RequestPart(value = "file") MultipartFile file) {
+    public TeamDTO addTeam(@RequestPart("name") String name,
+                           @RequestPart("league_id") String leagueId,
+                           @RequestPart("file") MultipartFile file) {
+        if(!leagueId.matches("-?\\d+"))
+            throw new NumberFormatException("League id must be a number");
+
+        TeamRequestDTO teamDTO = TeamRequestDTO.builder().name(name).leagueId(Integer.valueOf(leagueId)).build();
         return this.teamService.addTeam(teamDTO, file);
     }
 
@@ -42,8 +46,13 @@ public class TeamController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @ResponseStatus(value = HttpStatus.OK)
     @PutMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public TeamDTO modifyTeam(@PathVariable Integer id, @Valid @RequestPart("team") TeamRequestDTO teamDTO,
-                                  @RequestPart(value = "file", required = false) MultipartFile file) {
+    public TeamDTO modifyTeam(@PathVariable Integer id, @RequestPart("name") String name,
+                              @RequestPart("league_id") String leagueId,
+                              @RequestPart(value = "file", required = false) MultipartFile file) {
+        if(!leagueId.matches("-?\\d+"))
+            throw new NumberFormatException("League id must be a number");
+
+        TeamRequestDTO teamDTO = TeamRequestDTO.builder().name(name).leagueId(Integer.valueOf(leagueId)).build();
         return this.teamService.modifyTeam(id, teamDTO, file);
     }
 

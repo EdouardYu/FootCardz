@@ -11,6 +11,7 @@ import mobile.application.footcardz.entity.player.Player;
 import mobile.application.footcardz.entity.player.Team;
 import mobile.application.footcardz.entity.user.User;
 import mobile.application.footcardz.repository.PlayerRepository;
+import mobile.application.footcardz.service.exception.AlreadyUsedException;
 import mobile.application.footcardz.service.exception.DailyPlayerAlreadyAssignedException;
 import mobile.application.footcardz.service.exception.PlayerException;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
@@ -25,6 +27,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
+@Validated
 @Transactional
 @AllArgsConstructor
 @Service
@@ -96,13 +99,17 @@ public class PlayerService {
         return PlayerMapper.toPlayerDetailsDTO(player);
     }
 
-    public PlayerDetailsDTO modifyPlayer(Integer id, PlayerRequestDTO playerDTO, MultipartFile file) {
+    public PlayerDetailsDTO modifyPlayer(Integer id, @Valid PlayerRequestDTO playerDTO, MultipartFile file) {
         Player player = this.findById(id);
+        String newName = playerDTO.getName();
+
+        if(!player.getName().equals(newName) && this.playerRepository.existsByName(newName))
+            throw new AlreadyUsedException("Name already used");
 
         Team team = this.teamService.findById(playerDTO.getTeamId());
         Nationality nationality = this.nationalityService.findById(playerDTO.getNationalityId());
 
-        player.setName(playerDTO.getName());
+        player.setName(newName);
         player.setPosition(playerDTO.getPosition());
         player.setTeam(team);
         player.setNationality(nationality);
@@ -119,6 +126,9 @@ public class PlayerService {
     }
 
     public PlayerDetailsDTO addPlayer(@Valid PlayerRequestDTO playerDTO, MultipartFile file) {
+        if(this.playerRepository.existsByName(playerDTO.getName()))
+            throw new AlreadyUsedException("Name already used");
+
         if (file.isEmpty())
             throw new IllegalArgumentException("File cannot be empty");
 
@@ -142,6 +152,9 @@ public class PlayerService {
     }
 
     public void deletePlayer(Integer id) {
+        if(this.userPlayerCollectionService.existsByPlayerId(id))
+            throw new PlayerException("Cannot delete player. Some users own this player");
+
         Player player = this.findById(id);
 
         String fileName = player.getId() + this.FILE_FORMAT;

@@ -1,10 +1,10 @@
 package mobile.application.footcardz.controller;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mobile.application.footcardz.dto.player.PlayerDTO;
 import mobile.application.footcardz.dto.player.PlayerDetailsDTO;
 import mobile.application.footcardz.dto.player.PlayerRequestDTO;
+import mobile.application.footcardz.entity.enumeration.Position;
 import mobile.application.footcardz.entity.player.Player;
 import mobile.application.footcardz.service.PlayerService;
 import org.springframework.data.domain.Page;
@@ -48,8 +48,13 @@ public class PlayerController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @ResponseStatus(value = HttpStatus.OK)
     @PutMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PlayerDetailsDTO modifyPlayer(@PathVariable Integer id, @Valid @RequestPart("player") PlayerRequestDTO playerDTO,
+    public PlayerDetailsDTO modifyPlayer(@PathVariable Integer id,
+                                         @RequestPart("name") String name,
+                                         @RequestPart("position") String position,
+                                         @RequestPart("team_id") String teamId,
+                                         @RequestPart("nationality_id") String nationalityId,
                                          @RequestPart(value = "file", required = false) MultipartFile file) {
+        PlayerRequestDTO playerDTO = convertToPlayerRequestDTOWithTypeCheck(name, position, teamId, nationalityId);
         return this.playerService.modifyPlayer(id, playerDTO, file);
     }
 
@@ -57,9 +62,13 @@ public class PlayerController {
     @ResponseStatus(value = HttpStatus.OK)
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
     public PlayerDetailsDTO addPlayer(
-        @Valid @RequestPart("player") PlayerRequestDTO playerDTO,
+        @RequestPart("name") String name,
+        @RequestPart("position") String position,
+        @RequestPart("team_id") String teamId,
+        @RequestPart("nationality_id") String nationalityId,
         @RequestPart("file") MultipartFile file) {
-       return this.playerService.addPlayer(playerDTO, file);
+        PlayerRequestDTO playerDTO = convertToPlayerRequestDTOWithTypeCheck(name, position, teamId, nationalityId);
+        return this.playerService.addPlayer(playerDTO, file);
     }
 
     @PreAuthorize("hasRole('ADMINISTRATOR')")
@@ -67,5 +76,23 @@ public class PlayerController {
     @DeleteMapping("{id}")
     public void deletePlayer(@PathVariable Integer id) {
         this.playerService.deletePlayer(id);
+    }
+
+    private PlayerRequestDTO convertToPlayerRequestDTOWithTypeCheck(String name, String position, String teamId, String nationalityId) {
+        if(!Position.isValid(position))
+            throw new IllegalArgumentException("Invalid position");
+
+        if(!teamId.matches("-?\\d+"))
+            throw new NumberFormatException("Team ID must be a number");
+
+        if(!nationalityId.matches("-?\\d+"))
+            throw new NumberFormatException("Nationality ID must be a number");
+
+        return PlayerRequestDTO.builder()
+            .name(name)
+            .position(Position.valueOf(position))
+            .teamId(Integer.valueOf(teamId))
+            .nationalityId(Integer.valueOf(nationalityId))
+            .build();
     }
 }

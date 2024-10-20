@@ -1,6 +1,5 @@
 package mobile.application.footcardz.controller;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mobile.application.footcardz.dto.league.LeagueDTO;
 import mobile.application.footcardz.dto.league.LeagueRequestDTO;
@@ -22,8 +21,9 @@ public class LeagueController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @ResponseStatus(value = HttpStatus.OK)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public LeagueDTO addLeague(@Valid @RequestPart("league") LeagueRequestDTO leagueDTO,
+    public LeagueDTO addLeague(@RequestPart("name") String name,
                                @RequestPart(value = "file") MultipartFile file) {
+        LeagueRequestDTO leagueDTO = LeagueRequestDTO.builder().name(name).build();
          return this.leagueService.addLeague(leagueDTO, file);
     }
 
@@ -42,8 +42,9 @@ public class LeagueController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @ResponseStatus(value = HttpStatus.OK)
     @PutMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public LeagueDTO modifyLeague(@PathVariable Integer id, @Valid @RequestPart("league") LeagueRequestDTO leagueDTO,
+    public LeagueDTO modifyLeague(@PathVariable Integer id, String name,
                                   @RequestPart(value = "file", required = false) MultipartFile file) {
+        LeagueRequestDTO leagueDTO = LeagueRequestDTO.builder().name(name).build();
         return this.leagueService.modifyLeague(id, leagueDTO, file);
     }
 

@@ -51,4 +51,8 @@ public class UserPlayerCollectionService {
         return this.userPlayerCollectionRepository.searchPlayersByUser(userId, trimmedTerm, pageable)
             .map(userPlayer -> PlayerMapper.toPlayerDTO(userPlayer.getPlayer()));
     }
+
+    public boolean existsByPlayerId(Integer playerId) {
+        return this.userPlayerCollectionRepository.existsByPlayerId(playerId);
+    }
 }

@@ -3,6 +3,8 @@ package mobile.application.footcardz.controller.advice;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import mobile.application.footcardz.dto.ErrorEntity;
 import mobile.application.footcardz.service.exception.*;
@@ -13,11 +15,15 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
+
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
@@ -34,7 +40,8 @@ public class ApplicationControllerAdvice {
         TeamException.class,
         LeagueException.class,
         NationalityException.class,
-        IllegalArgumentException.class
+        IllegalArgumentException.class,
+        NumberFormatException.class
     })
     public @ResponseBody ErrorEntity handleBadRequestException(RuntimeException e) {
         log.warn(String.valueOf(e));
@@ -68,6 +75,41 @@ public class ApplicationControllerAdvice {
         return new ErrorEntity(
             HttpStatus.BAD_REQUEST.value(),
             "Invalid request format: " + e.getMessage()
+        );
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({HttpMediaTypeNotSupportedException.class})
+    public @ResponseBody ErrorEntity handleBadRequestException(HttpMediaTypeNotSupportedException e) {
+        log.warn(String.valueOf(e));
+        return new ErrorEntity(
+            HttpStatus.BAD_REQUEST.value(),
+            e.getMessage()
+        );
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({MissingServletRequestPartException.class})
+    public @ResponseBody ErrorEntity handleBadRequestException(MissingServletRequestPartException e) {
+        log.warn(String.valueOf(e));
+        String message = e.getMessage().substring(0, e.getMessage().length() - 1);
+        return new ErrorEntity(
+            HttpStatus.BAD_REQUEST.value(),
+            message
+        );
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({ConstraintViolationException.class})
+    public @ResponseBody ErrorEntity handleBadRequestException(ConstraintViolationException e) {
+        log.warn(String.valueOf(e));
+        String message = e.getConstraintViolations().stream()
+            .map(ConstraintViolation::getMessage)
+            .collect(Collectors.joining(", "));
+
+        return new ErrorEntity(
+            HttpStatus.BAD_REQUEST.value(),
+            message
         );
     }
 

@@ -1,6 +1,5 @@
 package mobile.application.footcardz.controller;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import mobile.application.footcardz.dto.nation.NationalityDTO;
 import mobile.application.footcardz.dto.nation.NationalityRequestDTO;
@@ -22,8 +21,9 @@ public class NationalityController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @ResponseStatus(value = HttpStatus.OK)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public NationalityDTO addNationality(@Valid @RequestPart("nationality") NationalityRequestDTO nationalityDTO,
+    public NationalityDTO addNationality(@RequestPart("name") String name,
                                          @RequestPart(value = "file") MultipartFile file) {
+        NationalityRequestDTO nationalityDTO = NationalityRequestDTO.builder().name(name).build();
         return this.nationalityService.addNationality(nationalityDTO, file);
     }
 
@@ -42,8 +42,9 @@ public class NationalityController {
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @ResponseStatus(value = HttpStatus.OK)
     @PutMapping(path = "{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public NationalityDTO modifyNationality(@PathVariable Integer id, @Valid @RequestPart("nationality") NationalityRequestDTO nationalityDTO,
+    public NationalityDTO modifyNationality(@PathVariable Integer id, @RequestPart("name") String name,
                                   @RequestPart(value = "file", required = false) MultipartFile file) {
+        NationalityRequestDTO nationalityDTO = NationalityRequestDTO.builder().name(name).build();
         return this.nationalityService.modifyNationality(id, nationalityDTO, file);
     }
 

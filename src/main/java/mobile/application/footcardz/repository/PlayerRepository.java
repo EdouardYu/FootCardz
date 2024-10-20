@@ -22,4 +22,6 @@ public interface PlayerRepository extends JpaRepository<Player, Integer> {
         "OR LOWER(P.team.league.name) LIKE LOWER(CONCAT(:term, '%')) " +
         "OR LOWER(P.nationality.name) LIKE LOWER(CONCAT(:term, '%')))")
     Page<Player> searchPlayers(String term, Pageable pageable);
+
+    boolean existsByName(String name);
 }

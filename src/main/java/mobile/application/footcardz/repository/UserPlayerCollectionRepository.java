@@ -20,4 +20,6 @@ public interface UserPlayerCollectionRepository extends JpaRepository<UserPlayer
         "OR LOWER(UPC.player.team.league.name) LIKE LOWER(CONCAT(:term, '%')) " +
         "OR LOWER(UPC.player.nationality.name) LIKE LOWER(CONCAT(:term, '%')))")
     Page<UserPlayerCollection> searchPlayersByUser(Integer userId, String term, Pageable pageable);
+
+    boolean existsByPlayerId(Integer playerId);
 }

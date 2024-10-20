@@ -21,7 +21,14 @@ public class StorageService {
 
     public void storeImageWithSizeCheck(MultipartFile file, String folder, String fileName, int expectedWidth, int expectedHeight) {
         try {
+            if (!"image/png".equals(file.getContentType()))
+                throw new IllegalArgumentException("Only PNG images are allowed");
+
             BufferedImage image = ImageIO.read(file.getInputStream());
+
+            if (image == null) {
+                throw new IllegalArgumentException("The provided file is not a valid or is a corrupted image");
+            }
 
             if (image.getWidth() != expectedWidth || image.getHeight() != expectedHeight)
                 throw new IllegalArgumentException("Image size must be " + expectedWidth + "x" + expectedHeight + " pixels");
