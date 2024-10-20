@@ -188,7 +188,7 @@ def check_images_existence_in_folders():
     print("Check completed")
 
 if __name__ == "__main__":
-    engine = create_engine('postgresql+psycopg2://root:root@localhost:5433/footcardz')
+    engine = create_engine('postgresql+psycopg2://neondb_owner:1hLv3OegGATi@ep-black-field-a2npl24g.eu-central-1.aws.neon.tech/neondb')
     Session = sessionmaker(bind=engine)
 
     with Session() as session:
