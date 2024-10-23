@@ -23,7 +23,7 @@ public class PlayerController {
 
     @ResponseStatus(value = HttpStatus.OK)
     @GetMapping(path = "daily", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Player getRandomPlayerNotOwnedByUser() {
+    public PlayerDTO getRandomPlayerNotOwnedByUser() {
         return this.playerService.getRandomPlayerNotOwnedByUser();
     }
 

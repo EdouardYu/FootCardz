@@ -44,7 +44,7 @@ public class PlayerService {
     private final int EXPECTED_HEIGHT = 512;
 
 
-    public Player getRandomPlayerNotOwnedByUser() {
+    public PlayerDTO getRandomPlayerNotOwnedByUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User dbUser = this.userService.findById(user.getId());
         Integer userId = dbUser.getId();
@@ -75,7 +75,9 @@ public class PlayerService {
         Player player =  this.playerRepository.findRandomPlayerNotOwnedByUser(userId)
             .orElseThrow(() -> new PlayerException("No available players to assign"));
 
-        return this.userPlayerCollectionService.save(dbUser, player, Instant.now());
+        player = this.userPlayerCollectionService.save(dbUser, player, Instant.now());
+
+        return PlayerMapper.toPlayerDTO(player);
     }
 
     public Page<PlayerDTO> getAllPlayers(Pageable pageable) {
