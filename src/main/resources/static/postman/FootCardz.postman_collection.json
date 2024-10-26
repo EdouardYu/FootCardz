@@ -1,0 +1,1321 @@
+{
+	"info": {
+		"_postman_id": "84042011-c08b-491b-b9d6-c429c14579df",
+		"name": "FootCardz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22057795"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"EdouardYu\",\r\n    \"email\": \"yuedouard@gmail.com\",\r\n    \"password\": \"Azerty1234?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "activate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"yuedouard@gmail.com\",\r\n    \"code\": \"449798\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/activate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new activation code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"yuedouard@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/activate/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"activate",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"yuedouard@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/password/reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"yuedouard@gmail.com\",\r\n    \"password\": \"Azerty1234!\",\r\n    \"code\": \"492446\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/password/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"password",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"EdouardYu\",\r\n    \"password\": \"Azerty1234!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign in as admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\": \"de33e7fd-1e5d-4c8d-977c-acc7c47ed047\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/token/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign out",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjg5OTUyNTAsImV4cCI6MTcyOTAwOTY1MCwic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.UE1KhHQ83jX7FGr4Cc6grRV7KVG9PBu4cd5NURH31ZOm2_09qnMVAO-gHTK1NvtP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/signout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"signout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjg5OTUyNTAsImV4cCI6MTcyOTAwOTY1MCwic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.UE1KhHQ83jX7FGr4Cc6grRV7KVG9PBu4cd5NURH31ZOm2_09qnMVAO-gHTK1NvtP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/profiles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"profiles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modify profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjg5OTUyNTAsImV4cCI6MTcyOTAwOTY1MCwic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.UE1KhHQ83jX7FGr4Cc6grRV7KVG9PBu4cd5NURH31ZOm2_09qnMVAO-gHTK1NvtP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"EdouardY\",\r\n    \"email\": \"edouard.yu@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/profiles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"profiles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modify password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjg5OTUyNTAsImV4cCI6MTcyOTAwOTY1MCwic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.UE1KhHQ83jX7FGr4Cc6grRV7KVG9PBu4cd5NURH31ZOm2_09qnMVAO-gHTK1NvtP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"old_password\": \"Azerty1234!\",\r\n    \"new_password\": \"Azerty1234?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/profiles/1/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"profiles",
+								"1",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user players",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjk0MTc3NzEsImV4cCI6MTcyOTQzMjE3MSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.h_H2onk9HTNSj1fJdZ02fG-AFhrjUn7agE_UsMwRRumorhp4ZWg4K06WDlmvmuWr",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/1/players",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"1",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search user payers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNTcwMDgsImV4cCI6MTcyOTM3MTQwOCwic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.bKwTYhIV57pHDOy4R9uuPXO6AjsTEFwbWTa7uYq_q6WXsggIGQThnG8L0t96DIrf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/1/players/search?term=atl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"1",
+								"players",
+								"search"
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "atl"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "player",
+			"item": [
+				{
+					"name": "search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzMDc5MjcsImV4cCI6MTcyOTMyMjMyNywic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.hJdrViTZ4SkdgK_DiIipe0wJ93JENRRZQZjnhsahx_on9RynvLGm3iv9j9s4aHYZ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/players/search?term=real&page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players",
+								"search"
+							],
+							"query": [
+								{
+									"key": "term",
+									"value": "real"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "players",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkyOTc1NjIsImV4cCI6MTcyOTMxMTk2Miwic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.xVP9YpcP4M1kRg4FFbXa9C6ZQoDHLgN9pAvxoqjrB3UcZGIYqC1bJWzCsOZanvAd",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/players",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "player by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzMDc5MjcsImV4cCI6MTcyOTMyMjMyNywic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.hJdrViTZ4SkdgK_DiIipe0wJ93JENRRZQZjnhsahx_on9RynvLGm3iv9j9s4aHYZ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/players/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "daily random player",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNTcwMDgsImV4cCI6MTcyOTM3MTQwOCwic3ViIjoiMSIsInJvbGUiOiJVU0VSIn0.bKwTYhIV57pHDOy4R9uuPXO6AjsTEFwbWTa7uYq_q6WXsggIGQThnG8L0t96DIrf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/players/daily",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players",
+								"daily"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifiy player",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjk0MTc3NzEsImV4cCI6MTcyOTQzMjE3MSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.h_H2onk9HTNSj1fJdZ02fG-AFhrjUn7agE_UsMwRRumorhp4ZWg4K06WDlmvmuWr",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Mumbai City FC",
+									"type": "text"
+								},
+								{
+									"key": "position",
+									"value": "ST",
+									"type": "text"
+								},
+								{
+									"key": "team_id",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "nationality_id",
+									"value": "75",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/players/563",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players",
+								"563"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add player",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Chhangte",
+									"type": "text"
+								},
+								{
+									"key": "position",
+									"value": "RW",
+									"type": "text"
+								},
+								{
+									"key": "team_id",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "nationality_id",
+									"value": "75",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/yuedo/Downloads/footcardz/player.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/players",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "player by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjk0MTc3NzEsImV4cCI6MTcyOTQzMjE3MSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.h_H2onk9HTNSj1fJdZ02fG-AFhrjUn7agE_UsMwRRumorhp4ZWg4K06WDlmvmuWr",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/players/230",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players",
+								"230"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "team",
+			"item": [
+				{
+					"name": "add team",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Mumbai City FC",
+									"type": "text"
+								},
+								{
+									"key": "league_id",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/yuedo/Downloads/footcardz/team.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/teams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "team by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/teams/123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teams",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/teams",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifiy team",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Mumbai City FC",
+									"type": "text"
+								},
+								{
+									"key": "league_id",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/yuedo/Downloads/footcardz/team.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/teams/122",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teams",
+								"122"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "team by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjk0MTc3NzEsImV4cCI6MTcyOTQzMjE3MSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.h_H2onk9HTNSj1fJdZ02fG-AFhrjUn7agE_UsMwRRumorhp4ZWg4K06WDlmvmuWr",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/teams/123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teams",
+								"123"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "league",
+			"item": [
+				{
+					"name": "add league",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNjQzMTYsImV4cCI6MTcyOTM3ODcxNiwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.csyelBlhWmnnKPz7YeXjSARgtAFJUCk5KV4TVKJ_e4LVlxZYTBXGtCkNAySOgKc5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Indian Super League",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/yuedo/Downloads/footcardz/league.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/leagues",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leagues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "league by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/leagues/30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leagues",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "leagues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/leagues",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leagues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifiy league",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "baba",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/yuedo/IdeaProjects/FootCardz/src/main/resources/static/images/leagues/1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/leagues/32",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leagues",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "league by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjk0MTc3NzEsImV4cCI6MTcyOTQzMjE3MSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.h_H2onk9HTNSj1fJdZ02fG-AFhrjUn7agE_UsMwRRumorhp4ZWg4K06WDlmvmuWr",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/leagues/30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leagues",
+								"30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "nationality",
+			"item": [
+				{
+					"name": "add nationality",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/yuedo/Downloads/footcardz/nationality.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/nationalities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nationalities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nationality by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nationalities/75",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nationalities",
+								"75"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nationalities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nationalities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nationalities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifiy nationality",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MjkzNzk1NzksImV4cCI6MTcyOTM5Mzk3OSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.pz69iL6lUOZuR0hPql-I8q4zwlMPRtXeNiOTRsZMAXBCbGMjLcEav7zKFuY7tOr-",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/nationalities/74",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nationalities",
+								"74"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nationality by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3Mjk0MTc3NzEsImV4cCI6MTcyOTQzMjE3MSwic3ViIjoiMiIsInJvbGUiOiJBRE1JTklTVFJBVE9SIn0.h_H2onk9HTNSj1fJdZ02fG-AFhrjUn7agE_UsMwRRumorhp4ZWg4K06WDlmvmuWr",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/nationalities/75",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"nationalities",
+								"75"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
