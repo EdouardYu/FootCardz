@@ -9,7 +9,7 @@ docker compose up
 4. Launch the frontend (available: https://github.com/EdouardYu/FootCardz-UI)
 
 # How to retrieve activation code or reset password code:
-From the address bar of a web browser: http://localhost:8082
+From the address bar of a web browser: http://localhost:8081
 
 # Test the admin features on the API that are not implemented in the application:
 1. Launch postman and import the file available from the project root:
